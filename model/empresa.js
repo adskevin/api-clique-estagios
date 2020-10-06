@@ -3,18 +3,19 @@ var Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
 
-const UsuarioSchema = new Schema({
-    usuario: String,
+const EmpresaSchema = new Schema({
+    admins: [String],
+    login: String,
     senha: String,
     email: String,
     informacoes: {
-        pessoais: {
-            nome: String,
-            sexo: String,
-            estadoCivil: String,
-            dataNasc: Date,
-            rg: String,
-            cpf: String
+        principais: {
+            razaoSocial: String,
+            nomeFantasia: String,
+            dataFundacao: String,
+            ie: String,
+            ramo: String,
+            cnpj: String
         },
         endereco: {
             cep: String,
@@ -32,7 +33,14 @@ const UsuarioSchema = new Schema({
                     descr: String,
                     numero: Number
                 }
-            ]
+            ],
+            sites: [
+                {
+                    descr: String,
+                    link: String
+                }
+            ],
+            responsaveis: [String]
         },
         redesSociais: {
             facebook: String,
@@ -47,27 +55,16 @@ const UsuarioSchema = new Schema({
                 }
             ]
         },
-        habilidades: [String],
-        educacao: [
-            {
-                nivelEnsino: String,
-                instituicao: String,
-                cursoGrau: String,
-                prevFormatura: String
-            }
-        ],
-        disponibilidade: String,
-        experiencias: [
-            {
-                descr: String,
-                empresa: String,
-                periodo: String
-            }
-        ],
-        vagasInteresse: [String]
-    }
+        outros: {
+            numeroFuncionarios: Number,
+            comentarios: [String],
+            pontosRef: [String],
+            onibusPerto: [String]
+        }
+    },
+    vagas: [String]
 }, {
     versionKey:false
 });
 
-module.exports = mongoose.model("Usuario", UsuarioSchema);
+module.exports = mongoose.model("Empresa", EmpresaSchema);
