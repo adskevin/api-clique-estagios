@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const devPort = 3000;
+// const devPort = 3000;
 // require('dotenv').config();
 
 //Importa Rotas
@@ -36,7 +36,9 @@ mongoose.Promise = global.Promise;
 app.use('/usuarios', rotaUsuario);
 app.use('/empresas', rotaEmpresa);
 
-app.listen(devPort, () => {
-  const port = process.env.PORT || devPort;
-  console.log(`Iniciando o servidor: http://localhost:${port}`);
-});
+app.listen(process.env.PORT || 3000);
+
+// const port = process.env.PORT || devPort;
+// app.listen(port, () => {
+//   console.log(`Iniciando o servidor: http://localhost:${port}`);
+// });
