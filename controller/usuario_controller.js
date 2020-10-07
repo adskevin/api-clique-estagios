@@ -65,24 +65,28 @@ exports.buscarUsuario = (req, res, next) => {
     }
 }
 
-exports.validaUsuario = (req, res, next) => {
-    if (req.body && req.body.usuario && req.body.senha){
-        const usuario = req.body.usuario;
+exports.validaUsuario = (req, res) => {
+    if (req.body && req.body.cpf && req.body.senha){
+        const cpf = req.body.cpf;
         const senha = req.body.senha
-        Usuario.findOne({usuario}, (err, usuario) => {
+        Usuario.findOne({'informacoes.pessoais.cpf': cpf}, (err, usuario) => {
             if(err){
                 res.status(500).send(err);
             }
-            const valido = bcrypt.compareSync(senha, usuario.senha);
-            if(usuario && valido){
-                const token = jwt.sign({
-                    id: usuario.id,
-                    user: true
-                }, process.env.SECRET_KEY, {expiresIn: "1h"});
-                res.status(201).send({token});
-            }
-            else{
-                res.status(401).send("Usuario ou senha invalidos");
+            if(usuario != null) {
+                const valido = bcrypt.compareSync(senha, usuario.senha);
+                if(usuario && valido){
+                    const token = jwt.sign({
+                        id: usuario.id,
+                        user: true
+                    }, process.env.SECRET_KEY, {expiresIn: "1h"});
+                    res.status(201).send({token});
+                }
+                else{
+                    res.status(401).send("Usuario ou senha invalidos");
+                }
+            } else {
+                res.status(400).send('Usuário não encontrado.');
             }
         });
     }

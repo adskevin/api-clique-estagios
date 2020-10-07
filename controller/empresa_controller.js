@@ -54,35 +54,41 @@ exports.buscarPorId = (req, res) => {
 }
 
 exports.buscarEmpresa = (req, res, next) => {
-    if (req.query && req.query.empresa){
-        const paramEmpresa = req.query.empresa;
-        Empresa.find({empresa: paramEmpresa}, (err, empresas) => {
+    if (req.query && req.query.cnpj){
+        const paramEmpresa = req.query.cnpj;
+        console.log(typeof paramEmpresa);
+        Empresa.findOne({ 'informacoes.principais.cnpj': paramEmpresa }, (err, empresas) => {
             if(err){
                 res.status(500).send(err);
             }
+            empresas.senha = "";
             res.json(empresas);
         });
     }
 }
 
 exports.validaEmpresa = (req, res) => {
-    if (req.body && req.body.login && req.body.senha){
-        const login = req.body.login;
+    if (req.body && req.body.cnpj && req.body.senha){
+        const cnpj = req.body.cnpj;
         const senha = req.body.senha
-        Empresa.findOne({login}, (err, empresa) => {
+        Empresa.findOne({'informacoes.principais.cnpj': cnpj}, (err, empresa) => {
             if(err){
                 res.status(500).send(err);
             }
-            const valido = bcrypt.compareSync(senha, empresa.senha);
-            if(empresa && valido){
-                const token = jwt.sign({
-                    id: empresa.id,
-                    user: false
-                }, process.env.SECRET_KEY, {expiresIn: "1h"});
-                res.status(201).send({token});
-            }
-            else{
-                res.status(401).send("Login ou senha invalidos");
+            if(empresa != null) {
+                const valido = bcrypt.compareSync(senha, empresa.senha);
+                if(empresa && valido){
+                    const token = jwt.sign({
+                        id: empresa.id,
+                        user: false
+                    }, process.env.SECRET_KEY, {expiresIn: "1h"});
+                    res.status(201).send({token});
+                }
+                else{
+                    res.status(401).send("Login ou senha invalidos");
+                }
+            } else {
+                res.status(400).send('Empresa não encontrada.');
             }
         });
     }
