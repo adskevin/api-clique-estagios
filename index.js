@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const port = 3000;
-require('dotenv').config();
+// require('dotenv').config();
 
 //Importa Rotas
 const rotaUsuario = require('./rotas/usuario_rota');
