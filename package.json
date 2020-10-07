@@ -1,5 +1,5 @@
 {
-  "name": "bkestagios",
+  "name": "api-clique-estagios",
   "version": "1.0.0",
   "description": "Api para site de busca de estágios.",
   "main": "index.js",

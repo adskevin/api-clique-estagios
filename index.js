@@ -1,8 +1,18 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-// const devPort = 3000;
-// require('dotenv').config();
+let devPort = 3000;
+
+try {
+  let result = require('dotenv').config();
+  if(result.error) {
+    console.log(result.error);
+  } else {
+    devPort = process.env.PORT;
+  }
+} catch (error) {
+  console.log('Erro ao carregar a dependência "dotenv" - ' + error);
+}
 
 //Importa Rotas
 const rotaUsuario = require('./rotas/usuario_rota');
@@ -36,9 +46,4 @@ mongoose.Promise = global.Promise;
 app.use('/usuarios', rotaUsuario);
 app.use('/empresas', rotaEmpresa);
 
-app.listen(process.env.PORT || 3000);
-
-// const port = process.env.PORT || devPort;
-// app.listen(port, () => {
-//   console.log(`Iniciando o servidor: http://localhost:${port}`);
-// });
+app.listen(process.env.PORT || devPort);
