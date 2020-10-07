@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const port = 3000;
-// require('dotenv').config();
+const devPort = 3000;
+require('dotenv').config();
 
 //Importa Rotas
 const rotaUsuario = require('./rotas/usuario_rota');
@@ -36,6 +36,7 @@ mongoose.Promise = global.Promise;
 app.use('/usuarios', rotaUsuario);
 app.use('/empresas', rotaEmpresa);
 
-app.listen(port, () => {
+app.listen(devPort, () => {
+  const port = process.env.PORT || devPort;
   console.log(`Iniciando o servidor: http://localhost:${port}`);
 });
