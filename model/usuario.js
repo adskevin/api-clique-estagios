@@ -64,7 +64,7 @@ const UsuarioSchema = new Schema({
                 periodo: String
             }
         ],
-        vagasInteresse: [String]
+        vagasInteresse: [{ type: Schema.ObjectId, ref: 'Vaga' }]
     }
 }, {
     versionKey:false

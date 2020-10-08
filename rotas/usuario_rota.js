@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controller/usuario_controller');
-const { validaTokenUsuario } = require('../controller/usuario_controller');
+const { validaToken } = require('../controller/auth_controller');
 
 //Rotas sem autenticação
 router.post('/', controller.inserir);
-router.post('/auth', controller.validaUsuario);
+// router.post('/auth', controller.validaUsuario);
 
 // A partir daqui, rotas com autenticação
 router.use((req, res, next) => {
-    validaTokenUsuario(req, res, next);
+    validaToken(req, res, next);
 });
 
 router.get('/', controller.listar);

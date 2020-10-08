@@ -15,8 +15,10 @@ try {
 }
 
 //Importa Rotas
+const rotaAuth = require('./rotas/auth_rota');
 const rotaUsuario = require('./rotas/usuario_rota');
 const rotaEmpresa = require('./rotas/empresa_rota');
+const rotaVaga = require('./rotas/vaga_rota');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -43,7 +45,9 @@ mongoose.Promise = global.Promise;
 // });
 
 //Uso das rotas
+app.use('/auth', rotaAuth);
 app.use('/usuarios', rotaUsuario);
 app.use('/empresas', rotaEmpresa);
+app.use('/vagas', rotaVaga);
 
 app.listen(process.env.PORT || devPort);

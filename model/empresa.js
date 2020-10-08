@@ -4,8 +4,6 @@ var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const EmpresaSchema = new Schema({
-    admins: [String],
-    login: String,
     senha: String,
     email: String,
     informacoes: {
@@ -62,7 +60,7 @@ const EmpresaSchema = new Schema({
             onibusPerto: [String]
         }
     },
-    vagas: [String]
+    vagas: [{ type: Schema.ObjectId, ref: 'Vaga' }]
 }, {
     versionKey:false
 });
