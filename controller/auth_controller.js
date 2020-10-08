@@ -63,7 +63,6 @@ exports.validaToken = (req, res, next) => {
     }
     else {
         jwt.verify(token, process.env.SECRET_KEY, (err, tokenInfo) => {
-            console.log(tokenInfo);
             if(err){
                 res.status(401).send(err.message);
             }

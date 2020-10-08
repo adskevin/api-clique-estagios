@@ -5,7 +5,6 @@ const { validaToken } = require('../controller/auth_controller');
 
 //Rotas sem autenticação
 router.post('/', controller.inserir);
-// router.post('/auth', controller.validaUsuario);
 
 // A partir daqui, rotas com autenticação
 router.use((req, res, next) => {
@@ -13,10 +12,9 @@ router.use((req, res, next) => {
 });
 
 router.get('/', controller.listar);
-//Adicionado search para buscar usuario pelo nome
 router.get('/search', controller.buscarUsuario);
-router.get('/:id', controller.buscarPorId);
-router.put('/:id', controller.atualizar);
-router.delete('/:id', controller.deletar);
+router.put('/', controller.atualizar);
+router.delete('/', controller.deletar);
+// router.get('/:id', controller.buscarPorId);
 
 module.exports = router;

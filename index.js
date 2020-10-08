@@ -20,8 +20,10 @@ const rotaUsuario = require('./rotas/usuario_rota');
 const rotaEmpresa = require('./rotas/empresa_rota');
 const rotaVaga = require('./rotas/vaga_rota');
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+// for parsing application/json
+app.use(express.json())
+// for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }))
 
 
 //Configuração do Mongoose

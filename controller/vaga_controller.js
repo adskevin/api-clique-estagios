@@ -1,4 +1,5 @@
 const Vaga = require('../model/vaga');
+const { atualizarVagas } = require('./empresa_controller.js');
 // const jwt = require('jsonwebtoken');
 
 exports.listar = (req, res) => {
@@ -11,57 +12,86 @@ exports.listar = (req, res) => {
 }
 
 exports.inserir = (req, res) => {
-    console.log(req.id);
-    let novaVaga = new Vaga(req.body);
-    novaVaga.empresa = req.id;
-    novaVaga.save((err, vaga) => {
-        if(err){
-            res.send(err);
-        }
-        res.status(201).json(vaga);
-    });
+    if(req.isUser === true) {
+        res.status(403).send('Não autorizado');
+    } else {
+        let novaVaga = new Vaga(req.body);
+        novaVaga.empresa = req.id;
+        novaVaga.save((err, vaga) => {
+            if(err){
+                res.send(err);
+            } else {
+                atualizarVagas(vaga);
+                res.json(vaga);
+            }
+        });
+    }
 }
 
 exports.atualizar = (req, res) => {
-    let id = req.params.id;
+    let idEmpresa = req.id;
+    let idVaga = req.body._id;
     let vagaAtualizar = req.body;
-    Vaga.findOneAndUpdate({ _id: id }, vagaAtualizar, { new: true }, (err, vagaAtual) => {
+    Vaga.findOne({ _id: idVaga }, (err, vaga) => {
         if(err){
-            res.send(err);
+            res.status(400).send("Bad request.");
         }
-        res.json(vagaAtual);
+        if(vaga) {
+            if (vaga.empresa.toString() === idEmpresa) {
+                console.log('vaga pertence à empresa logada');
+                Vaga.findOneAndUpdate({ _id: idVaga }, vagaAtualizar, { new: true }, (err, vagaAtual) => {
+                    if(err){
+                        res.send(err);
+                    }
+                    res.json(vagaAtual);
+                });
+            } else {                
+                res.status(400).send('Bad request.');
+            }
+        }
     });
 }
 
 exports.deletar = (req, res) => {
-    let id = req.params.id;
-    Vaga.findOneAndDelete({ _id: id }, (err, vagaAtual) => {
+    let idVaga = req.params.id;
+    let idEmpresa = req.id;
+    Vaga.findOne({ _id: idVaga }, (err, vaga) => {
         if(err){
-            res.send(err);
+            res.status(400).send("Bad request.");
         }
-        res.json(vagaAtual);
-    });
-}
-
-exports.buscarPorId = (req, res) => {
-    let id = req.params.id;
-    Vaga.findById(id, (err, vaga) => {
-        if(err)
-            res.status(500).send(err);        
-        res.json(vaga);
-    });
-}
-
-exports.buscarVaga = (req, res, next) => {
-    if (req.query && req.query.cnpj){
-        const paramVaga = req.query.cnpj;
-        console.log(typeof paramVaga);
-        Vaga.findOne({ 'informacoes.principais.cnpj': paramVaga }, (err, vagas) => {
-            if(err){
-                res.status(500).send(err);
+        if(vaga) {
+            if (vaga.empresa.toString() === idEmpresa) {
+                console.log('vaga pertence à empresa logada');
+                Vaga.findOneAndDelete({ _id: idVaga }, (err, vagaAtual) => {
+                    if(err){
+                        res.send(err);
+                    }
+                    res.json(vagaAtual);
+                });
+            } else {                
+                res.status(400).send('Bad request.');
             }
-            vagas.senha = "";
+        }
+    });
+}
+
+exports.buscarVaga = (req, res) => {
+    if (req.query && req.query.id){
+        const paramVaga = req.query.id;
+        Vaga.findOne({ _id: paramVaga }, (err, vagas) => {
+            if(err){
+                res.status(400).send("Bad request.");
+            }
             res.json(vagas);
         });
     }
 }
+
+// exports.buscarPorId = (req, res) => {
+//     let id = req.params.id;
+//     Vaga.findById(id, (err, vaga) => {
+//         if(err)
+//             res.status(500).send(err);        
+//         res.json(vaga);
+//     });
+// }
