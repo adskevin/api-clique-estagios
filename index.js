@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 let devPort = 3000;
 
 try {
@@ -45,6 +46,9 @@ mongoose.Promise = global.Promise;
 //   console.log("Method: "+req.method)
 //   next();
 // });
+
+//Uso do CORS
+app.use(cors());
 
 //Uso das rotas
 app.use('/auth', rotaAuth);
