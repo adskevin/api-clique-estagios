@@ -26,19 +26,10 @@ const EmpresaSchema = new Schema({
         },
         contato: {
             celular: Number,
-            outros: [
-                {
-                    descr: String,
-                    numero: Number
-                }
-            ],
-            sites: [
-                {
-                    descr: String,
-                    link: String
-                }
-            ],
-            responsaveis: [String]
+            telefonePrincipal: Number
+			telefoneAuxiliar: Number
+            responsavel: String
+			substituto: String
         },
         redesSociais: {
             facebook: String,
@@ -46,18 +37,13 @@ const EmpresaSchema = new Schema({
             linkedin: String,
             twitter: String,
             github: String,
-            outras: [
-                {
-                    descr: String,
-                    valor: String
-                }
-            ]
+            outras: String
         },
         outros: {
             numeroFuncionarios: Number,
-            comentarios: [String],
-            pontosRef: [String],
-            onibusPerto: [String]
+            comentarios: String,
+            pontosRef: String,
+            onibusPerto: String
         }
     },
     vagas: [{ type: Schema.ObjectId, ref: 'Vaga' }]
