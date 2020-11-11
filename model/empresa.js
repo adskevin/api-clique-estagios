@@ -26,10 +26,11 @@ const EmpresaSchema = new Schema({
         },
         contato: {
             celular: Number,
-            telefonePrincipal: Number
-			telefoneAuxiliar: Number
-            responsavel: String
-			substituto: String
+            telefonePrincipal: Number,
+            telefoneAuxiliar: Number,
+            responsavel: String,
+            substituto: String,
+            site: String
         },
         redesSociais: {
             facebook: String,
@@ -48,7 +49,7 @@ const EmpresaSchema = new Schema({
     },
     vagas: [{ type: Schema.ObjectId, ref: 'Vaga' }]
 }, {
-    versionKey:false
+    versionKey: false
 });
 
 module.exports = mongoose.model("Empresa", EmpresaSchema);
