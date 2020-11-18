@@ -13,10 +13,11 @@ exports.listar = (req, res) => {
 
 exports.inserir = (req, res) => {
     let novoUsuario = new Usuario(req.body);
+    console.log(req.body);
     novoUsuario.senha = bcrypt.hashSync(req.body.senha,10); 
     novoUsuario.save((err, usuario) => {
         if(err){
-            res.send(err);
+            res.status(500).json(err);
         }
         res.status(201).json(usuario);
         

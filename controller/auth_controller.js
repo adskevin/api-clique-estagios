@@ -18,6 +18,7 @@ exports.autentica = (req, res) => {
                     if(usuario && valido){
                         const token = jwt.sign({
                             id: usuario.id,
+                            cpf: usuario.informacoes.pessoais.cpf,
                             user: true
                         }, process.env.SECRET_KEY, {expiresIn: "1h"});
                         res.status(201).send({token});
