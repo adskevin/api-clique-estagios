@@ -18,7 +18,7 @@ exports.inserir = (req, res) => {
     novoUsuario.save((err, usuario) => {
         if(err){
             console.log(err);
-            res.status(500).json(err);
+            res.status(500).send(err);
         }
         res.status(201).json(usuario);        
     });

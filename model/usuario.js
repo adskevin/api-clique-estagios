@@ -50,13 +50,16 @@ const UsuarioSchema = new Schema({
         habilidades: [String],
         educacao: [
             {
-                nivelEnsino: String,
+                nivelEnsino: [String],
                 instituicao: String,
                 cursoGrau: String,
-                prevFormatura: String
+                mesFormatura: [String],
+                anoFormatura: [String],
+                numeroMatricula: String,
+                semestre: String
             }
         ],
-        disponibilidade: String,
+        disponibilidade: [String],
         experiencias: [
             {
                 descr: String,
