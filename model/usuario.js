@@ -26,13 +26,10 @@ const UsuarioSchema = new Schema({
             bairro: String
         },
         contato: {
+            telefonePrincipal: Number,
+            telefoneAuxiliar: Number,
             celular: Number,
-            outros: [
-                {
-                    descr: String,
-                    numero: Number
-                }
-            ]
+            responsavelRecado: String
         },
         redesSociais: {
             facebook: String,
@@ -60,13 +57,42 @@ const UsuarioSchema = new Schema({
             }
         ],
         disponibilidade: [String],
-        experiencias: [
-            {
-                descr: String,
-                empresa: String,
-                periodo: String
-            }
-        ],
+        experiencias: {
+            experienciaAtual: {
+                empresaAtual: String,
+                periodoIncialAtual: String,
+                periodoFinalAtual: String,
+                atividadesAtual: String,
+              },
+              experienciaPenultima: {
+                empresaPenultima: String,
+                periodoIncialPenultima: String,
+                periodoFinalPenultima: String,
+                atividadesPenultima: String,
+              },
+              experienciaVivenciaAnterior1: {
+                empresaVivenciaAnterior: String,
+                periodoIncialVivenciaAnterior: String,
+                periodoFinalVivenciaAnterior: String,
+                atividadesVivenciaAnterior: String,
+              },
+              experienciaVivenciaAnterior2: {
+                empresaVivenciaAnterior: String,
+                periodoIncialVivenciaAnterior: String,
+                periodoFinalVivenciaAnterior: String,
+                atividadesVivenciaAnterior: String,
+              }
+        },
+        habilidades: [],
+        educacao: [],
+        disponibilidade: [],
+        experiencias: [],
+        conhecimentos: {
+            idiomas: [],
+            informatica: [],
+            outros: []
+        },
+        portfolio: String,
         vagasInteresse: [{ type: Schema.ObjectId, ref: 'Vaga' }]
     }
 }, {
