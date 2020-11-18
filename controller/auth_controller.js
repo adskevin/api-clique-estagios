@@ -21,7 +21,7 @@ exports.autentica = (req, res) => {
                             cpf: usuario.informacoes.pessoais.cpf,
                             user: true
                         }, process.env.SECRET_KEY, {expiresIn: "1h"});
-                        res.status(201).send({token});
+                        res.status(201).send({token, usuario});
                     }
                     else{
                         res.status(401).send("Credenciais inválidas");
@@ -44,7 +44,7 @@ exports.autentica = (req, res) => {
                             id: empresa.id,
                             user: false
                         }, process.env.SECRET_KEY, {expiresIn: "1h"});
-                        res.status(201).send({token});
+                        res.status(201).send({token, empresa});
                     }
                     else{
                         res.status(401).send("Credenciais inválidas");
