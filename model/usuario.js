@@ -6,7 +6,6 @@ mongoose.Promise = global.Promise;
 const UsuarioSchema = new Schema({
     usuario: String,
     senha: String,
-    email: String,
     informacoes: {
         pessoais: {
             nome: String,
@@ -14,7 +13,8 @@ const UsuarioSchema = new Schema({
             estadoCivil: String,
             dataNasc: Date,
             rg: String,
-            cpf: String
+            cpf: String,
+            email: String,
         },
         endereco: {
             cep: String,
@@ -26,9 +26,9 @@ const UsuarioSchema = new Schema({
             bairro: String
         },
         contato: {
-            telefonePrincipal: Number,
-            telefoneAuxiliar: Number,
-            celular: Number,
+            telefonePrincipal: String,
+            telefoneAuxiliar: String,
+            celular: String,
             responsavelRecado: String
         },
         redesSociais: {
