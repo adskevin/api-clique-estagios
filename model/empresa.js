@@ -25,9 +25,9 @@ const EmpresaSchema = new Schema({
             bairro: String
         },
         contato: {
-            celular: Number,
-            telefonePrincipal: Number,
-            telefoneAuxiliar: Number,
+            celular: String,
+            telefonePrincipal: String,
+            telefoneAuxiliar: String,
             responsavel: String,
             substituto: String,
             site: String
