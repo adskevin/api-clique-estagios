@@ -6,6 +6,11 @@ mongoose.Promise = global.Promise;
 const VagaSchema = new Schema({
     titulo: String,
     atividade: String,
+    ramo: String,
+    cidade: String,
+    bairro: String,
+    onibusProximos: String,
+    pontoReferencia: String,
     numeroVagas: String,
     remuneracao: String,
     possibilidadeEfetivacao: String,
@@ -19,7 +24,7 @@ const VagaSchema = new Schema({
     empresa: { type: Schema.ObjectId, ref: 'Empresa' },
     interessados: [{ type: Schema.ObjectId, ref: 'Usuario' }]
 }, {
-    versionKey:false
+    versionKey: false
 });
 
 module.exports = mongoose.model("Vaga", VagaSchema);
