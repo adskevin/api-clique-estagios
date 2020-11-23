@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 const VagaSchema = new Schema({
-    nome: String,
+    titulo: String,
     atividade: String,
     numeroVagas: String,
     remuneracao: String,
