@@ -29,7 +29,7 @@ exports.autentica = (req, res) => {
                 } else {
                     res.status(400).send('Usuário não encontrado.');
                 }
-            });
+            }).populate('vagas');
         }
         else if(req.body.cnpj) {
             const cnpj = req.body.cnpj;
@@ -52,7 +52,7 @@ exports.autentica = (req, res) => {
                 } else {
                     res.status(400).send('Empresa não encontrada.');
                 }
-            });
+            }).populate('vagas');
         }
     }
 }
