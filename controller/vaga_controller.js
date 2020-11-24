@@ -1,4 +1,5 @@
 const Vaga = require('../model/vaga');
+const Empresa = require('../model/empresa');
 const { atualizarVagas } = require('./empresa_controller.js');
 // const jwt = require('jsonwebtoken');
 
@@ -84,6 +85,20 @@ exports.buscarVaga = (req, res) => {
             }
             res.json(vagas);
         });
+    }
+}
+
+exports.buscarVagaCNPJ = (req, res) => {
+    if (req.query && req.query.cnpj){
+        const cnpj = req.query.cnpj;
+        Empresa.findOne({ 'informacoes.principais.cnpj': cnpj }, (err, empresa) => {
+            if(err){
+                res.status(400).send("Bad request.");
+            }
+            if (empresa) {
+                res.json(empresa.vagas);
+            }
+        }).populate('vagas');
     }
 }
 

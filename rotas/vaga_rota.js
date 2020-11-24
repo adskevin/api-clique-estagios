@@ -10,6 +10,7 @@ router.use((req, res, next) => {
 
 router.get('/', controller.listar);
 router.post('/', controller.inserir);
+router.get('/getByCompany', controller.buscarVagaCNPJ);
 router.get('/search', controller.buscarVaga);
 router.put('/', controller.atualizar);
 router.delete('/:id', controller.deletar);
