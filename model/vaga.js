@@ -17,7 +17,7 @@ const VagaSchema = new Schema({
     horario: String,
     cargaHoraria: String,
     requisitos: String,
-    SemestreMinimo: String,
+    semestreMinimo: String,
     beneficios: String,
     outrosBeneficios: String,
     observacao: String,
