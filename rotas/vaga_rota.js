@@ -11,9 +11,10 @@ router.use((req, res, next) => {
 router.get('/', controller.listar);
 router.post('/', controller.inserir);
 router.get('/getByCompany', controller.buscarVagaCNPJ);
+router.get('/getByPerson', controller.buscarVagaCPF);
+router.post('/interesse', controller.interesseVaga);
 router.get('/search', controller.buscarVaga);
 router.put('/', controller.atualizar);
 router.delete('/:id', controller.deletar);
-// router.get('/:id', controller.buscarPorId);
 
 module.exports = router;

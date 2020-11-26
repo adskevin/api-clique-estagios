@@ -1,5 +1,6 @@
 const Vaga = require('../model/vaga');
 const Empresa = require('../model/empresa');
+const Usuario = require('../model/usuario');
 const { atualizarVagas } = require('./empresa_controller.js');
 // const jwt = require('jsonwebtoken');
 
@@ -100,6 +101,37 @@ exports.buscarVagaCNPJ = (req, res) => {
             }
         }).populate('vagas');
     }
+}
+
+exports.buscarVagaCPF = (req, res) => {
+    if (req.query && req.query.cpf){
+        const cpf = req.query.cpf;
+        Usuario.findOne({ 'informacoes.pessoais.cpf': cpf }, (err, usuario) => {
+            if(err){
+                res.status(400).send("Bad request.");
+            }
+            if (usuario) {
+                res.json(usuario.informacoes.vagasInteresse);
+            }
+        }).populate('informacoes.vagasInteresse');
+    }
+}
+
+exports.interesseVaga = (req, res) => {
+    let idVaga = req.body.idVaga;
+    let idUsuario = req.id;
+
+    Vaga.findOneAndUpdate({ _id: idVaga }, { $push: { interessados: idUsuario } }, { new: true }, (err) => {
+        if(err){
+            res.status(400).send("Bad request.");
+        }
+        Usuario.findOneAndUpdate({ _id: idUsuario }, { $push: { 'informacoes.vagasInteresse': idVaga } }, { new: true }, (err) => {
+            if(err){
+                res.status(400).send("Bad request.");
+            }
+        });
+        res.json("done");
+    });
 }
 
 // exports.buscarPorId = (req, res) => {
