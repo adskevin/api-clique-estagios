@@ -134,6 +134,19 @@ exports.interesseVaga = (req, res) => {
     });
 }
 
+exports.interessados = (req, res) => {
+    let idVaga = req.query.id;
+
+    Vaga.findOne({ _id: idVaga }, (err, vaga) => {
+        if(err){
+            res.status(400).send("Bad request.");
+        }
+        if (vaga) {
+            res.json(vaga.interessados);
+        }
+    }).populate('interessados');
+}
+
 // exports.buscarPorId = (req, res) => {
 //     let id = req.params.id;
 //     Vaga.findById(id, (err, vaga) => {

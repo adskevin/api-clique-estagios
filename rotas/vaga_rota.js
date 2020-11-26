@@ -13,6 +13,7 @@ router.post('/', controller.inserir);
 router.get('/getByCompany', controller.buscarVagaCNPJ);
 router.get('/getByPerson', controller.buscarVagaCPF);
 router.post('/interesse', controller.interesseVaga);
+router.get('/interessados', controller.interessados);
 router.get('/search', controller.buscarVaga);
 router.put('/', controller.atualizar);
 router.delete('/:id', controller.deletar);
