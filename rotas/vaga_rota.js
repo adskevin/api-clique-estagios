@@ -4,7 +4,7 @@ const controller = require('../controller/vaga_controller');
 const { validaToken } = require('../controller/auth_controller');
 
 router.get('/', controller.listar);
-router.get('/search:id', controller.buscarPorId);
+router.get('/search', controller.buscarVaga);
 
 // A partir daqui, rotas com autenticação
 router.use((req, res, next) => {
@@ -16,7 +16,6 @@ router.get('/getByCompany', controller.buscarVagaCNPJ);
 router.get('/getByPerson', controller.buscarVagaCPF);
 router.post('/interesse', controller.interesseVaga);
 router.get('/interessados', controller.interessados);
-router.get('/search', controller.buscarVaga);
 router.put('/', controller.atualizar);
 router.delete('/:id', controller.deletar);
 

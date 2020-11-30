@@ -147,11 +147,11 @@ exports.interessados = (req, res) => {
     }).populate('interessados');
 }
 
-exports.buscarPorId = (req, res) => {
-    let id = req.params.id;
-    Vaga.findById(id, (err, vaga) => {
-        if(err)
-            res.status(500).send(err);        
-        res.json(vaga);
-    });
-}
+// exports.buscarPorId = (req, res) => {
+//     let id = req.params.id;
+//     Vaga.findById(id, (err, vaga) => {
+//         if(err)
+//             res.status(500).send(err);        
+//         res.json(vaga);
+//     });
+// }
