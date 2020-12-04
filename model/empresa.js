@@ -41,7 +41,7 @@ const EmpresaSchema = new Schema({
             outras: String
         },
         outros: {
-            numeroFuncionarios: Number,
+            numeroFuncionarios: String,
             comentarios: String,
             pontosRef: String,
             onibusPerto: String
