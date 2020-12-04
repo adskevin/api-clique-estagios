@@ -11,7 +11,7 @@ const UsuarioSchema = new Schema({
             nome: String,
             sexo: String,
             estadoCivil: String,
-            dataNasc: Date,
+            dataNasc: String,
             rg: String,
             cpf: String,
             email: String,
