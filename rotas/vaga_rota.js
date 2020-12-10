@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controller/vaga_controller');
 const { validaToken } = require('../controller/auth_controller');
+const Usuario = require('../model/usuario');
 
 router.get('/', controller.listar);
 router.get('/search', controller.buscarVaga);

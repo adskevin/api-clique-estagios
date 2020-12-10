@@ -117,9 +117,28 @@ exports.buscarVagaCPF = (req, res) => {
     }
 }
 
-exports.interesseVaga = (req, res) => {
+exports.interesseVaga = async (req, res) => {
     let idVaga = req.body.idVaga;
     let idUsuario = req.id;
+
+    let vagaIgual = false;
+
+    await Usuario.findById(idUsuario, (err, usuario) => {
+        var arrayVagas = usuario.informacoes.vagasInteresse;
+        arrayVagas.map((vaga) => {
+            if (vaga == idVaga) {
+                vagaIgual = true;
+            }
+        });
+    });
+    
+    if (vagaIgual) {
+        res.status(400).json({
+            code: 1,
+            message: "Usuario já cadastrado nessa vaga"
+        });
+        return;
+    }
 
     Vaga.findOneAndUpdate({ _id: idVaga }, { $push: { interessados: idUsuario } }, { new: true }, (err) => {
         if(err){
