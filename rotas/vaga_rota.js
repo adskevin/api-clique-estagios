@@ -15,7 +15,32 @@ router.use((req, res, next) => {
 router.post('/', controller.inserir);
 router.get('/getByCompany', controller.buscarVagaCNPJ);
 router.get('/getByPerson', controller.buscarVagaCPF);
+
+router.use('/interesse', (req, res, next) => {
+    let idVaga = req.body.idVaga;
+    let idUsuario = req.id;
+    let vagaIgual = false;
+
+    Usuario.findById(idUsuario, (err, usuario) => {
+        var arrayVagas = usuario.informacoes.vagasInteresse;
+        arrayVagas.map((vaga) => {
+            if (vaga == idVaga) {
+                vagaIgual = true;
+            }
+        });
+    }).then(() => {
+        if (vagaIgual) {
+            res.status(400).send({
+                code: 1,
+                message: "Usuario já cadastrado nessa vaga"
+            });
+            return;
+        }
+        next();
+    });
+});
 router.post('/interesse', controller.interesseVaga);
+
 router.get('/interessados', controller.interessados);
 router.put('/', controller.atualizar);
 router.delete('/:id', controller.deletar);
