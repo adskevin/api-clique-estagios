@@ -12,7 +12,7 @@ const VagaSchema = new Schema({
     onibusProximos: String,
     pontoReferencia: String,
     numeroVagas: String,
-    remuneracao: String,
+    remuneracao: Number,
     possibilidadeEfetivacao: String,
     horario: String,
     cargaHoraria: String,
